@@ -1,0 +1,2 @@
+/root/test/cmake/tmp001/CMakeFiles/rebuild_cache.dir
+/root/test/cmake/tmp001/CMakeFiles/edit_cache.dir

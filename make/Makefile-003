@@ -1,0 +1,5 @@
+list = foo bar baz
+first_world=$(firstword $(list))
+
+all:
+	@echo ${first_world}

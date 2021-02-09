@@ -1,0 +1,68 @@
+.PHONY: callTest ifTest foreachTest filterTest target1 target2 target3
+
+define callFunc
+	@echo "call test arg1=$1"
+endef
+
+
+
+define evalFunc
+	$(evalFunc_arg1) := $(evalFunc_arg2)_obj
+endef
+
+
+msg := this is a makefile test
+filterKey := %s t%
+#emptyVar := empty
+
+
+evalFunc_arg1 := evalFunc1_v
+evalFunc_arg2 := eval1_v
+$(eval $(evalFunc))
+
+evalFunc_arg1 := evalFunc2_v
+evalFunc_arg2 := eval2_v
+$(eval $(evalFunc))
+
+evalFunc_arg1 := evalFunc3_v
+evalFunc_arg2 := eval3
+eval3_obj := eval3_1 eval3_2 eval3_3
+$(eval $(evalFunc))
+#$(info $(evalFunc))
+
+evalTest1:
+	@echo $(evalFunc1_v)
+	
+evalTest2:
+	@echo $(evalFunc2_v)
+	
+evalTest3:
+	@echo $($(evalFunc3_v))
+
+wordlistTest:
+	@echo $(wordlist 2,4,$(msg))
+
+firstwordTest:
+	@echo $(firstword $(msg))
+
+errorTest:
+	$(error "$(msg), this is error test")
+
+callTest:
+	$(call callFunc,$(msg))
+
+ifTest:
+	@echo $(if $(emptyVar),"not empty","empty")
+
+foreachTest: 
+	@echo $(foreach var,$(msg),$(var).c)
+
+filterTest: 
+	@echo $(filter $(filterKey),$(msg))
+filteroutTest: 
+	@echo $(filter-out $(filterKey),$(msg))
+ 
+target1 target2 target3:
+	@echo "this is muti target test!"
+
+
